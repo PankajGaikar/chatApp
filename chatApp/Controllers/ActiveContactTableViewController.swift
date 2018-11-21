@@ -38,7 +38,7 @@ class ActiveContactTableViewController: UITableViewController {
             print("user name from previous also found nil")
         }
         fetchMessages()
-        userListener()
+       // userListener()
         self.tableView.reloadData()
     }
     override func viewWillAppear(_ animated: Bool) {
