@@ -19,22 +19,14 @@ class LoginViewController: UIViewController {
     @IBAction func loginClicked(_ sender: Any) {
         let email = txtEmail.text
         let passkey = txtPassword.text
-        if email != nil && passkey != nil{
+        if email != nil && passkey != nil {
             Auth.auth().signIn(withEmail: email!, password: passkey!) { (result,error) in
-                var success : Bool = false
-                print("result : \(result!)")
-                if result?.value(forKey: "success") != nil{
-                    success = result?.value(forKey: "success")as! Bool
-                    print(success)
+                if error != nil{
+                    print("login error")
                 }
-                var error : NSError? = nil
-                if result?.value(forKey: "error") != nil{
-                    error = result?.value(forKey: "error")as? NSError
-                }
-                if success == true{
-                    let active = self.storyboard?.instantiateViewController(withIdentifier: "contactsVC")as! ActiveContactTableViewController
-                    active.userName = Auth.auth().currentUser?.displayName as? String
-                    self.navigationController?.pushViewController(active, animated: true)
+                else{
+                    let activeVC = self.storyboard?.instantiateViewController(withIdentifier: "contactsVC")as! ActiveContactTableViewController
+                    self.navigationController?.pushViewController(activeVC, animated: true)
                 }
             }
         }
